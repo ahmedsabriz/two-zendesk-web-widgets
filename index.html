@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Widget by ROCA</title>
+</head>
+
+<body>
+
+    <div onclick="alert('hi');" style="height: 100vh; width: 100%;">
+        <!-- Start of d3v-roca-ahmed Zendesk Widget script -->
+        <script id="ze-snippet"
+            src="https://static.zdassets.com/ekr/snippet.js?key=82fcf766-7dc4-4fd7-a697-ec353a569304"> </script>
+        <!-- End of d3v-roca-ahmed Zendesk Widget script -->
+        <iframe id="second-widget" src="iframe.html" allow="microphone *;" title="Call Us" frameborder="0"
+            style="position: fixed; bottom: 0px; left: 0px; height: 100%; width: 100%; opacity: 1; transition-duration: 250ms; transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1); transition-property: opacity, top, bottom; z-index: -999998; margin: 0px; padding: 0px; border: 0px; overflow: visible; background: transparent;">
+        </iframe>
+        <script>
+            let ifr = document.querySelector("#second-widget");
+            window.addEventListener('message', function (message) {
+                if (message.data == "widget.initiated") {
+                    setTimeout(() => {
+                        let launcher = ifr.contentWindow.document.querySelector("#launcher");
+                        ifr.style.width = launcher.style.width;
+                        ifr.style.height = launcher.style.height;
+                        ifr.style.zIndex = 999999;
+                        ifr.style.marginLeft = "20px";
+                        ifr.style.marginBottom = "10px"
+                        setTimeout(() => {
+                            launcher.style.margin = "0";
+                            launcher.style.width = ifr.style.width;
+                            launcher.style.height = ifr.style.height;
+                            launcher.contentWindow.document.querySelector("html").removeAttribute("style");
+                        }, 5000);
+                    }, 100);
+                } else if (message.data == "widget.opened") {
+                    setTimeout(() => {
+                        let webWidget = ifr.contentWindow.document.querySelector("#webWidget");
+                        webWidget.style.maxHeight = "100%";
+                        webWidget.contentWindow.document.querySelector("html").removeAttribute("style");
+                        ifr.style.width = webWidget.style.width;
+                        ifr.style.height = webWidget.style.height;
+                        ifr.style.margin = "0";
+                    }, 100);
+
+                } else if (message.data == "widget.closed") {
+                    setTimeout(() => {
+                        let launcher = ifr.contentWindow.document.querySelector("#launcher");
+                        launcher.style.margin = "0";
+                        ifr.style.width = launcher.style.width;
+                        ifr.style.height = launcher.style.height;
+                        ifr.style.marginLeft = "20px";
+                        ifr.style.marginBottom = "10px"
+                    }, 100);
+                }
+            });
+        </script>
+    </div>
+</body>
+
+</html>
